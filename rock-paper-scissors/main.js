@@ -1,5 +1,12 @@
-let humanScore = 0;
-let computerScore = 0;
+const choiceButton = Array.from(document.querySelectorAll("button"));
+let humanScore = document.querySelector(".player-score");
+let computerScore = document.querySelector(".computer-score");
+
+humanScore.textContent = 0;
+computerScore.textContent = 0;
+
+
+let display = document.querySelector(".outcome");
 
 function getComputerChoice() {
     let x = parseInt(Math.random() * 3);
@@ -7,63 +14,69 @@ function getComputerChoice() {
     return x == 0 ? "rock" :
         x == 1 ? "paper" :
             "scissors";
-
 }
 
 function getHumanChoice() {
     let choice = prompt("your choice: ");
-
     return choice;
 }
 
+function settleScore(h) {
+    if (h == 5) {
+        document.querySelector("#results").textContent = "Niee! You won the game!"
+    } else {
+        document.querySelector("#results").textContent = "Computer wins this game!"
+    }
+}
+
+function updateScore(who) {
+    let human = Number(humanScore.textContent);
+    human++;
+
+    let comp = Number(computerScore.textContent);
+    comp++;
+
+    if (who === "human") humanScore.textContent = human;
+    else computerScore.textContent = comp;
+
+    if (human == 5 || comp == 5) {
+        settleScore(human);
+    }
+}
+
 function playRound(humanChoice, computerChoice) {
-    let x = humanChoice.toLowerCase();
-    x == "rock" ? x = 0 :
-        x == "paper" ? x = 1 :
-            x = 2;
-
-    if (x == computerChoice) {
-        console.log("Both tied with " + humanChoice);
-        return;
-    } else if (x == 0) {
-        if (computerChoice == 1) {
-            // user rock & computer paper
-            console.log("You lose! Paper beats Rock");
-            computerScore++;
-            return;
+    if (humanChoice === computerChoice) {
+        display.textContent = `tie! both played ${humanChoice}`;
+    } else if (humanChoice === "rock") {
+        if (computerChoice === "scissors") {
+            display.textContent = `your ${humanChoice} beats ${computerChoice}`;
+            updateScore("human");
         } else {
-            // user rock & computer scissors
-            console.log("You won! Rock beats Scissors");
-            humanScore++;
+            display.textContent = `your ${humanChoice} loses against ${computerChoice}`;
+            updateScore("computer");
         }
-
-    } else if (x == 1) {
-        if (computerChoice == 0) {
-            // user paper & computer rock
-            console.log("You win! Paper beats Rock");
-            humanScore++;
-            return;
+    } else if (humanChoice === "paper") {
+        if (computerChoice === "scissors") {
+            display.textContent = `your ${humanChoice} loses against ${computerChoice}`;
+            updateScore("computer");
         } else {
-            // user paper & computer scissors
-            console.log("You lose! Scissors beat paper");
-            computerScore++;
+            display.textContent = `your ${humanChoice} beats ${computerChoice}`;
+            updateScore("human");
         }
-    } else if (x == 2) {
-        if (computerChoice == 0) {
-            // user scissors & computer rock
-            console.log("You lose! Rock beats scissors");
-            computerScore++;
-            return;
+    } else {
+        if (computerChoice === "rock") {
+            display.textContent = `your ${humanChoice} loses against ${computerChoice}`;
+            updateScore("computer");
         } else {
-            // user scissors & computer paper
-            console.log("You win! Scissors beat paper");
-            humanScore++;
+            display.textContent = `your ${humanChoice} beats ${computerChoice}`;
+            updateScore("human");
         }
     }
 }
 
-playRound(getHumanChoice(), getComputerChoice());
-playRound(getHumanChoice(), getComputerChoice());
-playRound(getHumanChoice(), getComputerChoice());
-playRound(getHumanChoice(), getComputerChoice());
-playRound(getHumanChoice(), getComputerChoice());
+
+choiceButton.forEach(btn => {
+    btn.addEventListener("click", () => {
+        playRound(btn.textContent, getComputerChoice());
+    })
+})
