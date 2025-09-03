@@ -1,5 +1,7 @@
 const container = document.querySelector(".container");
-let size = 16; // default
+const sizeBtn = document.getElementById("setSize");
+let size = 16; // default size
+let isHoverable = false;
 
 function createGrid(dimension) {
     let px = 960 / dimension;
@@ -21,20 +23,39 @@ function createGrid(dimension) {
         }
         container.appendChild(row);
     }
+
+    let allBox = document.querySelectorAll(".box");
+
+
+    allBox.forEach((box) => {
+        box.addEventListener("mousedown", () => {
+            isHoverable = !isHoverable;
+            box.style.backgroundColor = "white";
+        });
+
+        box.addEventListener("mouseenter", () => {
+            if (isHoverable) box.style.backgroundColor = "white";
+        });
+    })
+}
+
+function clearGrid() {
+    container.innerHTML = "";
 }
 
 createGrid(size);
 
-let allBox = document.querySelectorAll(".box");
-let isHoverable = false;
+sizeBtn.addEventListener("click", () => {
+    let newSize = prompt("Enter the number of squares per side (max 100): ", size);
 
-allBox.forEach((box) => {
-    box.addEventListener("mousedown", () => {
-        isHoverable = !isHoverable;
-        box.style.backgroundColor = "white";
-    });
-
-    box.addEventListener("mouseenter", () => {
-        if (isHoverable) box.style.backgroundColor = "white";
-    });
+    if (newSize !== null) {
+        newSize = parseInt(newSize);
+        if (!isNaN(newSize) && newSize > 0 && newSize <= 100) {
+            clearGrid();
+            createGrid(newSize);
+        } else {
+            alert("Please enter a valid number between 1 and 100.");
+        }
+    }
 })
+
