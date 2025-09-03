@@ -4,7 +4,7 @@ let size = 16; // default size
 let isHoverable = false;
 
 function createGrid(dimension) {
-    let px = 960 / dimension;
+    let px = 600 / dimension;
 
     console.log(px);
 
@@ -30,11 +30,11 @@ function createGrid(dimension) {
     allBox.forEach((box) => {
         box.addEventListener("mousedown", () => {
             isHoverable = !isHoverable;
-            box.style.backgroundColor = "white";
+            box.style.backgroundColor = "black";
         });
 
         box.addEventListener("mouseenter", () => {
-            if (isHoverable) box.style.backgroundColor = "white";
+            if (isHoverable) box.style.backgroundColor = "black";
         });
     })
 }
@@ -51,7 +51,7 @@ sizeBtn.addEventListener("click", () => {
     if (newSize !== null) {
         newSize = parseInt(newSize);
         if (!isNaN(newSize) && newSize > 0 && newSize <= 100) {
-            clearGrid();
+            clearGrid(); ``
             createGrid(newSize);
         } else {
             alert("Please enter a valid number between 1 and 100.");
