@@ -1,0 +1,29 @@
+#output {
+    font-size: 32px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0;
+}
+
+.operator {
+    background-color: orange;
+    color: white;
+}
+
+
+button {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+    font-size: 32px;
+}
+
+button:hover {
+    background-color: lightgray;
+    cursor: pointer;
+}
