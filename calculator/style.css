@@ -6,14 +6,12 @@
 
 #output {
     font-size: 32px;
-    /* color: #d9d9d9; */
     color: #000814;
     text-align: end;
     grid-column: span 4;
 }
 
 .container {
-    /* background-color: #000814; */
     width: 500px;
     margin: 0 auto;
 }
