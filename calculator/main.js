@@ -30,7 +30,6 @@ operatorList.forEach((item) => {
                 operator[1] = content;
                 evaluteOutput();
                 setOutput(content);
-                // operator.shift();
             }
         } else {
             evaluteOutput();
@@ -59,15 +58,22 @@ function setOutput(str) {
 }
 
 function evaluteOutput() {
+    if (outputDisplay.textContent === "Error ✖𐃷✖") { return; }
+
     let arr = outputDisplay.textContent.split(operator[0]);
-    console.log(arr);
     num1 = Number(arr[0]);
     num2 = Number(arr[1]);
 
     outputDisplay.textContent = "0";
-    console.log(num1, num2)
 
     if (num2 == NaN) { return; }
+
+    if (num2 == 0) {
+        setOutput("Error ✖𐃷✖");
+        num2 = NaN;
+        operator.shift();
+        return;
+    }
 
     if (operator[0] == "+") {
         num1 = add(num1, num2);
