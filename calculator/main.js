@@ -70,7 +70,7 @@ function evaluteOutput() {
 
     if (num2 == NaN) { return; }
 
-    if (num2 == 0) {
+    if (num2 == 0 && operator[0] == "x") {
         setOutput("Error");
         num2 = NaN;
         operator.shift();
